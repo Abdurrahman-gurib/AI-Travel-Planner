@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout(pageTitle, content)"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} + ' | AI Travel Planner'">AI Travel Planner</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark glass-nav sticky-top">
+    <div class="container-xl">
+        <a class="navbar-brand brand-mark" th:href="@{/}">
+            <span class="brand-mark-icon"><i class="bi bi-airplane-engines"></i></span>
+            <span class="brand-mark-text">
+                <strong>AI Travel Planner</strong>
+                <small>Dream. Plan. Go.</small>
+            </span>
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-modern" th:href="@{/}">
+                        <i class="bi bi-house-door me-1"></i>Home
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link nav-link-modern" th:href="@{/dashboard}">
+                        <i class="bi bi-grid me-1"></i>Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link nav-link-modern" th:href="@{/trips}">
+                        <i class="bi bi-map me-1"></i>Trips
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link nav-link-modern" th:href="@{/about}">
+                        <i class="bi bi-info-circle me-1"></i>About
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-2" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-outline-light btn-sm nav-btn" th:href="@{/login}">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="btn btn-gradient btn-sm nav-btn" th:href="@{/register}">
+                        <i class="bi bi-person-plus me-1"></i>Register
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown ms-lg-2" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle nav-link-modern user-dropdown" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle me-1"></i>My Account
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-modern">
+                        <li><a class="dropdown-item" th:href="@{/dashboard}"><i class="bi bi-grid me-2"></i>Dashboard</a></li>
+                        <li><a class="dropdown-item" th:href="@{/trips}"><i class="bi bi-map me-2"></i>My Trips</a></li>
+                        <li><a class="dropdown-item" th:href="@{/trips/new}"><i class="bi bi-plus-circle me-2"></i>Create Trip</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post" class="m-0">
+                                <button type="submit" class="dropdown-item">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <div th:replace="${content}"></div>
+</main>
+
+<footer class="footer-shell">
+    <div class="container-xl">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="brand-mark-icon footer-icon"><i class="bi bi-airplane-engines"></i></div>
+                <div>
+                    <h5>AI Travel Planner</h5>
+                    <p>
+                        A modern travel planning experience built with Spring Boot, Thymeleaf, SQLite, and OpenAI-ready features.
+                        Designed for travellers who want smarter itineraries, destination visuals, and MUR-based budgeting.
+                    </p>
+                </div>
+            </div>
+
+            <div class="footer-links-grid">
+                <div>
+                    <h6>Explore</h6>
+                    <a th:href="@{/}">Home</a>
+                    <a th:href="@{/about}">About</a>
+                    <a th:href="@{/login}">Login</a>
+                    <a th:href="@{/register}">Register</a>
+                </div>
+
+                <div sec:authorize="isAuthenticated()">
+                    <h6>Planner</h6>
+                    <a th:href="@{/dashboard}">Dashboard</a>
+                    <a th:href="@{/trips}">My Trips</a>
+                    <a th:href="@{/trips/new}">Create Trip</a>
+                </div>
+
+                <div>
+                    <h6>Highlights</h6>
+                    <span>AI itineraries</span>
+                    <span>MUR budgets</span>
+                    <span>Destination visuals</span>
+                    <span>Responsive UI</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 AI Travel Planner. Built for dream destinations and better travel decisions.</span>
+            <span class="footer-mini-note">Made with Spring Boot, Thymeleaf, SQLite, and tropical vibes.</span>
+        </div>
+    </div>
+</footer>
+
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-card text-center text-white">
+        <div class="spinner-border text-light mb-3" role="status"></div>
+        <div class="fw-semibold">Preparing your travel experience...</div>
+        <div class="small text-white-50 mt-1">Generating ideas, visuals, and planning guidance</div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

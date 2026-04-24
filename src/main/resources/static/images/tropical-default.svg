@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2378ff"/><stop offset="55%" stop-color="#16cfc1"/><stop offset="100%" stop-color="#ffad6f"/></linearGradient></defs>
+<rect width="1200" height="800" fill="url(#g)"/>
+<circle cx="910" cy="160" r="90" fill="#fff2b2" fill-opacity="0.8"/>
+<path d="M0 500 C180 430 350 430 530 500 C720 575 900 560 1200 500 L1200 800 L0 800 Z" fill="#05a8cb" fill-opacity="0.65"/>
+<path d="M0 580 C200 530 360 540 560 610 C760 680 960 650 1200 580 L1200 800 L0 800 Z" fill="#06759a" fill-opacity="0.55"/>
+<rect x="90" y="84" rx="22" width="560" height="130" fill="#03172d" fill-opacity="0.36"/>
+<text x="120" y="140" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700">Dream Destination</text>
+<text x="122" y="186" fill="#effcff" font-family="Arial, Helvetica, sans-serif" font-size="28">AI travel poster placeholder</text>
+</svg>

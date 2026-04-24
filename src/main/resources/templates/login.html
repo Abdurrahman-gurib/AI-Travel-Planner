@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('Login', ~{::content})}">
+<div th:fragment="content">
+
+    <section class="auth-shell">
+        <div class="container-xl py-5">
+            <div class="row justify-content-center align-items-center min-vh-75">
+                <div class="col-lg-10">
+                    <div class="auth-card-wrap">
+                        <div class="row g-0 overflow-hidden auth-card">
+                            <div class="col-lg-6 auth-side auth-side-visual">
+                                <div class="auth-side-content">
+                                    <span class="hero-badge">Welcome back</span>
+                                    <h1 class="auth-title mt-3">Sign in and continue planning your next dream destination.</h1>
+                                    <p class="auth-copy">
+                                        Access your saved trips, itinerary ideas, destination visuals, and MUR-based travel budgets from one modern dashboard.
+                                    </p>
+
+                                    <div class="auth-highlight-list">
+                                        <div><i class="bi bi-check2-circle"></i><span>Saved destination plans</span></div>
+                                        <div><i class="bi bi-check2-circle"></i><span>AI itinerary generation</span></div>
+                                        <div><i class="bi bi-check2-circle"></i><span>Trip history and regeneration</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 auth-side auth-side-form">
+                                <div class="auth-form-shell">
+                                    <div class="section-kicker">Account access</div>
+                                    <h2 class="mb-2">Login</h2>
+                                    <p class="text-secondary mb-4">Use your account details to enter the planner.</p>
+
+                                    <div th:if="${param.error}" class="alert alert-danger rounded-4">
+                                        Invalid email or password.
+                                    </div>
+
+                                    <div th:if="${param.logout}" class="alert alert-success rounded-4">
+                                        You have been logged out.
+                                    </div>
+
+                                    <form method="post" th:action="@{/login}" class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" name="username" class="form-control form-control-modern" placeholder="you@example.com" required>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" name="password" class="form-control form-control-modern" placeholder="Enter password" required>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-gradient btn-lg w-100">
+                                                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="auth-footer-note mt-4">
+                                        Don’t have an account?
+                                        <a th:href="@{/register}">Create one now</a>
+                                    </div>
+
+                                    <div class="demo-box mt-4">
+                                        <strong>Demo account</strong>
+                                        <div>demo@travelplanner.app</div>
+                                        <div>password</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</html>

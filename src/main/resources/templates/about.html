@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('About', ~{::content})}">
+<div th:fragment="content">
+
+    <section class="page-top-shell">
+        <div class="container-xl py-4 py-lg-5">
+            <div class="page-top-panel">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <span class="hero-badge dark-badge">About the project</span>
+                        <h1 class="page-title text-white mt-3">A travel planner built to feel inspiring, intelligent, and portfolio-worthy.</h1>
+                        <p class="page-subtitle text-white-50">
+                            This platform combines AI-powered planning, destination visuals, responsive UI,
+                            and practical budgeting in MUR to create a richer travel planning experience.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="btn btn-gradient btn-lg" th:href="@{/register}">
+                            <i class="bi bi-stars me-2"></i>Start Planning
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl section-space pt-4">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7">
+                <div class="page-card wow-panel h-100">
+                    <div class="section-kicker">Project overview</div>
+                    <h2 class="mb-3">More than a simple CRUD app</h2>
+                    <p class="text-secondary">
+                        AI Travel Planner is designed to feel like a premium digital travel assistant rather than a plain academic web app.
+                        It helps users create trips, generate AI-powered itineraries, visualize destinations, estimate budgets in MUR,
+                        and manage travel plans through a modern responsive dashboard.
+                    </p>
+                    <p class="text-secondary mb-0">
+                        The experience is focused on travel enthusiasts, demo-ready presentation, and clear portfolio value:
+                        authentication, SQLite persistence, AI text generation, image support, and a strong luxury-travel visual identity.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="page-card wow-panel h-100">
+                    <div class="section-kicker">Built with</div>
+                    <h2 class="mb-3">Technology stack</h2>
+
+                    <div class="analytics-row">
+                        <span>Backend framework</span>
+                        <strong>Spring Boot</strong>
+                    </div>
+                    <div class="analytics-row">
+                        <span>Frontend rendering</span>
+                        <strong>Thymeleaf</strong>
+                    </div>
+                    <div class="analytics-row">
+                        <span>Database</span>
+                        <strong>SQLite</strong>
+                    </div>
+                    <div class="analytics-row">
+                        <span>Authentication</span>
+                        <strong>Spring Security</strong>
+                    </div>
+                    <div class="analytics-row">
+                        <span>AI integration</span>
+                        <strong>OpenAI-ready</strong>
+                    </div>
+                    <div class="analytics-row">
+                        <span>Currency focus</span>
+                        <strong>MUR</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl pb-5">
+        <div class="row g-4">
+            <div class="col-md-6 col-xl-3">
+                <div class="feature-card modern-feature h-100">
+                    <h3>Authentication</h3>
+                    <p>Users can register, log in, save trip plans, and manage their own travel history securely.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="feature-card modern-feature h-100">
+                    <h3>Trip management</h3>
+                    <p>Create, edit, delete, and revisit trips with structured destination details and travel preferences.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="feature-card modern-feature h-100">
+                    <h3>AI planner</h3>
+                    <p>Generate itinerary sections, travel insights, packing lists, and checklist items based on trip inputs.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="feature-card modern-feature h-100">
+                    <h3>Destination visuals</h3>
+                    <p>Use direct image URLs or OpenAI-generated visuals to make trips feel more immersive and aspirational.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl pb-5">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-5">
+                <div class="page-card wow-panel h-100 timeline-shell">
+                    <div class="section-kicker">How it works</div>
+                    <h2 class="mb-3">The user flow</h2>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">1</div>
+                        <div>
+                            <strong>Create an account</strong>
+                            <p>Register or log in to access your private travel planner workspace.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">2</div>
+                        <div>
+                            <strong>Create a trip</strong>
+                            <p>Enter destination, dates, travel style, number of travellers, interests, and budget in MUR.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">3</div>
+                        <div>
+                            <strong>Generate AI content</strong>
+                            <p>The planner creates itinerary sections, insights, checklist items, and optional destination visuals.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step mb-0">
+                        <div class="timeline-dot">4</div>
+                        <div>
+                            <strong>Manage and refine</strong>
+                            <p>Return later to edit the trip, regenerate content, and maintain a polished travel history.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="page-card wow-panel h-100">
+                    <div class="section-kicker">Why it stands out</div>
+                    <h2 class="mb-3">A stronger project for demos, portfolios, and real users</h2>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="mini-info-card h-100">
+                                <div class="mini-info-label">Better presentation</div>
+                                <strong>Modern hero, cards, destination visuals, and premium spacing</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mini-info-card h-100">
+                                <div class="mini-info-label">More useful output</div>
+                                <strong>Itinerary, budget guidance, packing list, insights, and checklist</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mini-info-card h-100">
+                                <div class="mini-info-label">More realistic context</div>
+                                <strong>MUR-first budgeting for Mauritius-based travellers</strong>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mini-info-card h-100">
+                                <div class="mini-info-label">Portfolio quality</div>
+                                <strong>Combines backend, DB, auth, AI, UI, and responsive design</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-card modern-feature mt-4">
+                        <h3>Ideal use cases</h3>
+                        <p class="mb-0">
+                            Great for travel lovers, university demonstrations, portfolio showcases, and as a solid foundation for a more advanced AI-powered tourism platform.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(${pageTitle}, ~{::content})}">
+<div th:fragment="content">
+
+    <section class="page-top-shell">
+        <div class="container-xl py-4 py-lg-5">
+            <div class="page-top-panel trip-form-hero-panel">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <span class="hero-badge dark-badge">Tropical trip builder</span>
+                        <h1 class="page-title text-white mt-3" th:text="${pageTitle}">Create Dream Trip</h1>
+                        <p class="page-subtitle text-white-50">
+                            Choose your origin, dream destination, travel style, dates, interests, and MUR budget.
+                            The planner will turn it into a polished AI travel experience.
+                        </p>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="trip-form-mini-card">
+                            <i class="bi bi-sunrise"></i>
+                            <strong>Dream. Plan. Escape.</strong>
+                            <span>Built for tropical getaways, luxury city breaks, and island-inspired journeys.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl section-space pt-4">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="page-card wow-panel">
+                    <span class="section-kicker">Trip details</span>
+                    <h2 class="mb-3">Build your next travel experience</h2>
+                    <p class="text-secondary mb-4">
+                        Use the suggestions or type your own destination. The richer your input, the better the generated travel plan.
+                    </p>
+
+                    <form method="post"
+                          th:action="${formAction}"
+                          th:object="${tripRequest}"
+                          class="row g-4">
+
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+                        <div class="col-md-7">
+                            <label class="form-label">Dream Destination</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-geo-alt"></i>
+                                <input type="text"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{destination}"
+                                       list="destinationSuggestions"
+                                       placeholder="Choose or type a destination">
+                            </div>
+
+                            <datalist id="destinationSuggestions">
+                                <option value="Bali, Indonesia">
+                                <option value="Santorini, Greece">
+                                <option value="Zanzibar, Tanzania">
+                                <option value="Maldives">
+                                <option value="Dubai, UAE">
+                                <option value="Paris, France">
+                                <option value="Tokyo, Japan">
+                                <option value="Cape Town, South Africa">
+                                <option value="Mauritius North Coast Escape">
+                                <option value="Swiss Alps, Switzerland">
+                                <option value="Rome, Italy">
+                                <option value="New York, USA">
+                                <option value="Phuket, Thailand">
+                                <option value="Seychelles">
+                                <option value="Reunion Island">
+                                <option value="Singapore">
+                                <option value="Istanbul, Turkey">
+                                <option value="Doha, Qatar">
+                                <option value="Barcelona, Spain">
+                                <option value="London, United Kingdom">
+                            </datalist>
+
+                            <div class="travel-form-hint">
+                                Pick a dream destination or type your own custom place.
+                            </div>
+
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('destination')}"
+                                 th:errors="*{destination}"></div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label">Origin City</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-airplane-engines"></i>
+                                <input type="text"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{originCity}"
+                                       list="originSuggestions"
+                                       placeholder="Where are you travelling from?">
+                            </div>
+
+                            <datalist id="originSuggestions">
+                                <option value="Mauritius">
+                                <option value="Curepipe">
+                                <option value="Port Louis">
+                                <option value="Quatre Bornes">
+                                <option value="Vacoas">
+                                <option value="Rose Hill">
+                                <option value="Flic en Flac">
+                                <option value="Grand Baie">
+                                <option value="Mahébourg">
+                                <option value="Dubai, UAE">
+                                <option value="Paris, France">
+                                <option value="London, United Kingdom">
+                                <option value="Mumbai, India">
+                                <option value="Johannesburg, South Africa">
+                                <option value="Singapore">
+                            </datalist>
+
+                            <div class="travel-form-hint">
+                                Default for this project is Mauritius-based travel.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Start Date</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-calendar-event"></i>
+                                <input type="date"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{startDate}">
+                            </div>
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('startDate')}"
+                                 th:errors="*{startDate}"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">End Date</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-calendar-check"></i>
+                                <input type="date"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{endDate}">
+                            </div>
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('endDate')}"
+                                 th:errors="*{endDate}"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Travellers</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-people"></i>
+                                <input type="number"
+                                       min="1"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{travelers}">
+                            </div>
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('travelers')}"
+                                 th:errors="*{travelers}"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Budget</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-cash-stack"></i>
+                                <input type="number"
+                                       step="0.01"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{budget}"
+                                       placeholder="50000">
+                            </div>
+                            <div class="travel-form-hint">Recommended currency: MUR</div>
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('budget')}"
+                                 th:errors="*{budget}"></div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Currency</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-wallet2"></i>
+                                <select class="form-select form-control-modern input-with-icon" th:field="*{currency}">
+                                    <option th:each="currency : ${currencies}"
+                                            th:value="${currency}"
+                                            th:text="${currency}">
+                                        MUR
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Travel Style</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-stars"></i>
+                                <select class="form-select form-control-modern input-with-icon" th:field="*{travelStyle}">
+                                    <option th:each="style : ${travelStyles}"
+                                            th:value="${style}"
+                                            th:text="${style}">
+                                        Luxury
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('travelStyle')}"
+                                 th:errors="*{travelStyle}"></div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Interests</label>
+                            <div class="input-icon-wrap">
+                                <i class="bi bi-compass"></i>
+                                <input type="text"
+                                       class="form-control form-control-modern input-with-icon"
+                                       th:field="*{interests}"
+                                       list="interestSuggestions"
+                                       placeholder="beaches, food, shopping, culture">
+                            </div>
+
+                            <datalist id="interestSuggestions">
+                                <option value="beaches, spas, temples, sunset dining">
+                                <option value="shopping, skyline, desert safari, rooftop dining">
+                                <option value="cafes, museums, romance, fashion">
+                                <option value="food, culture, shopping, design">
+                                <option value="overwater villas, snorkeling, private dining, spa">
+                                <option value="coastline, mountains, wine estates, family activities">
+                                <option value="lagoon views, beach walks, spa, resort dining">
+                                <option value="history, pasta, piazzas, architecture">
+                                <option value="nightlife, luxury hotels, city exploration, shopping">
+                            </datalist>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Notes / Special Preferences</label>
+                            <textarea class="form-control form-control-modern"
+                                      rows="4"
+                                      th:field="*{notes}"
+                                      placeholder="Example: I prefer relaxed mornings, beach clubs, halal food options, scenic photos, and no rushed activities."></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="trip-form-preview">
+                                <div>
+                                    <span class="section-kicker">AI output preview</span>
+                                    <h3>What will be generated?</h3>
+                                    <p>
+                                        The planner can create itinerary sections, budget guidance, destination insights,
+                                        checklist items, packing suggestions, and image prompts.
+                                    </p>
+                                </div>
+
+                                <div class="trip-form-preview-grid">
+                                    <span><i class="bi bi-map"></i> Itinerary</span>
+                                    <span><i class="bi bi-cash-coin"></i> MUR Budget</span>
+                                    <span><i class="bi bi-suitcase-lg"></i> Packing List</span>
+                                    <span><i class="bi bi-image"></i> Destination Visual</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap gap-3">
+                                <button type="submit" class="btn btn-gradient btn-lg">
+                                    <i class="bi bi-check2-circle me-2"></i>Save Trip
+                                </button>
+
+                                <a class="btn btn-outline-secondary btn-lg" th:href="@{/trips}">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="page-card wow-panel sticky-panel">
+                    <span class="section-kicker">Traveller tips</span>
+                    <h3 class="mb-3">Better input = better AI plan</h3>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">1</div>
+                        <div>
+                            <strong>Choose a clear vibe</strong>
+                            <p>Luxury, wellness, adventure, romance, family, or city break.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">2</div>
+                        <div>
+                            <strong>Add real interests</strong>
+                            <p>Food, beaches, shopping, spas, culture, nightlife, or photography.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">3</div>
+                        <div>
+                            <strong>Use a realistic MUR budget</strong>
+                            <p>This makes the generated budget and recommendations more believable.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step mb-0">
+                        <div class="timeline-dot">4</div>
+                        <div>
+                            <strong>Regenerate later</strong>
+                            <p>Save the trip first, then regenerate the AI plan from the details page.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-card wow-panel mt-4">
+                    <span class="section-kicker">Popular tropical picks</span>
+                    <div class="tropical-picks">
+                        <span>Bali</span>
+                        <span>Maldives</span>
+                        <span>Zanzibar</span>
+                        <span>Seychelles</span>
+                        <span>Mauritius</span>
+                        <span>Phuket</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</html>

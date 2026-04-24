@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('Register', ~{::content})}">
+<div th:fragment="content">
+
+    <section class="auth-shell">
+        <div class="container-xl py-5">
+            <div class="row justify-content-center align-items-center min-vh-75">
+                <div class="col-lg-10">
+                    <div class="auth-card-wrap">
+                        <div class="row g-0 overflow-hidden auth-card">
+                            <div class="col-lg-6 auth-side auth-side-visual register-visual">
+                                <div class="auth-side-content">
+                                    <span class="hero-badge">Create your planner account</span>
+                                    <h1 class="auth-title mt-3">Start building premium travel plans with AI, visuals, and smart MUR budgets.</h1>
+                                    <p class="auth-copy">
+                                        Create your account and turn destination ideas into saved journeys, itinerary packages,
+                                        travel checklists, and beautiful destination cards.
+                                    </p>
+
+                                    <div class="auth-highlight-list">
+                                        <div><i class="bi bi-check2-circle"></i><span>Create and save trips</span></div>
+                                        <div><i class="bi bi-check2-circle"></i><span>Generate AI travel content</span></div>
+                                        <div><i class="bi bi-check2-circle"></i><span>Manage budgets in MUR</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 auth-side auth-side-form">
+                                <div class="auth-form-shell">
+                                    <div class="section-kicker">New account</div>
+                                    <h2 class="mb-2">Register</h2>
+                                    <p class="text-secondary mb-4">Create an account to access the travel planner.</p>
+
+                                    <form method="post" th:action="@{/register}" th:object="${registerRequest}" class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label">Full name</label>
+                                            <input type="text" class="form-control form-control-modern" th:field="*{fullName}" placeholder="Your full name">
+                                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" class="form-control form-control-modern" th:field="*{email}" placeholder="you@example.com">
+                                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" class="form-control form-control-modern" th:field="*{password}" placeholder="Choose a password">
+                                            <div class="text-danger small mt-1" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-gradient btn-lg w-100">
+                                                <i class="bi bi-person-plus me-2"></i>Create Account
+                                            </button>
+                                        </div>
+                                    </form>
+
+                                    <div class="auth-footer-note mt-4">
+                                        Already have an account?
+                                        <a th:href="@{/login}">Sign in</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</html>

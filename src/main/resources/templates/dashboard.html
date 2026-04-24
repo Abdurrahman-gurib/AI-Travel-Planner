@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('Dashboard', ~{::content})}">
+<div th:fragment="content">
+
+    <section class="dashboard-hero-shell">
+        <div class="container-xl py-4 py-lg-5">
+            <div class="dashboard-hero">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <span class="hero-badge dark-badge">AI travel dashboard</span>
+                        <h1 class="dashboard-title mt-3">
+                            Your premium travel command center.
+                        </h1>
+                        <p class="dashboard-subtitle">
+                            Track saved journeys, review upcoming escapes, manage MUR budgets,
+                            and regenerate AI-powered itineraries from one elegant workspace.
+                        </p>
+
+                        <div class="dashboard-hero-actions">
+                            <a class="btn btn-gradient btn-lg" th:href="@{/trips/new}">
+                                <i class="bi bi-plus-circle me-2"></i>Create Trip
+                            </a>
+                            <a class="btn btn-outline-light btn-lg" th:href="@{/trips}">
+                                <i class="bi bi-map me-2"></i>View Trips
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="dashboard-glass-card">
+                            <div class="section-kicker text-info-emphasis">Today’s planner focus</div>
+                            <h3 class="text-white mb-3">Plan smarter, travel better</h3>
+                            <div class="dashboard-focus-list">
+                                <div><i class="bi bi-stars"></i><span>Generate richer itineraries</span></div>
+                                <div><i class="bi bi-wallet2"></i><span>Keep budgets grounded in MUR</span></div>
+                                <div><i class="bi bi-image"></i><span>Use visuals to inspire each trip</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl dashboard-body">
+
+        <div class="row g-4 mb-4">
+            <div class="col-md-6 col-xl-3">
+                <div class="dashboard-metric-card">
+                    <div class="metric-icon blue"><i class="bi bi-map"></i></div>
+                    <div class="metric-label">Total trips</div>
+                    <div class="metric-value" th:text="${totalTrips != null ? totalTrips : 0}">0</div>
+                    <p>Saved travel plans in your account.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="dashboard-metric-card">
+                    <div class="metric-icon teal"><i class="bi bi-calendar2-week"></i></div>
+                    <div class="metric-label">Upcoming trips</div>
+                    <div class="metric-value" th:text="${upcomingTrips != null ? upcomingTrips : 0}">0</div>
+                    <p>Trips still ahead and ready to refine.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="dashboard-metric-card">
+                    <div class="metric-icon orange"><i class="bi bi-cash-stack"></i></div>
+                    <div class="metric-label">Planned budget</div>
+                    <div class="metric-value">
+                        <span th:text="${totalBudget != null ? #numbers.formatDecimal(totalBudget, 1, 'COMMA', 0, 'POINT') : '0'}">0</span>
+                    </div>
+                    <p>Total estimated budget in MUR.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-3">
+                <div class="dashboard-metric-card">
+                    <div class="metric-icon purple"><i class="bi bi-stars"></i></div>
+                    <div class="metric-label">AI plans</div>
+                    <div class="metric-value" th:text="${generatedTrips != null ? generatedTrips : 0}">0</div>
+                    <p>Trips enriched with AI content.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+            <div class="col-xl-8">
+                <div class="dashboard-panel h-100">
+                    <div class="dashboard-panel-header">
+                        <div>
+                            <span class="section-kicker">Recent trips</span>
+                            <h2>Your latest travel plans</h2>
+                            <p>Quick access to the most recent journeys in your planner.</p>
+                        </div>
+                        <a class="btn btn-outline-dark btn-sm" th:href="@{/trips}">
+                            View all
+                        </a>
+                    </div>
+
+                    <div class="dashboard-trip-grid" th:if="${recentTrips != null and !#lists.isEmpty(recentTrips)}">
+                        <a class="dashboard-trip-card"
+                           th:each="trip : ${recentTrips}"
+                           th:href="@{/trips/{id}(id=${trip.id})}">
+
+                            <img th:src="${trip.itinerary != null and trip.itinerary.generatedImageUrl != null and !#strings.isEmpty(trip.itinerary.generatedImageUrl)}
+                                          ? ${trip.itinerary.generatedImageUrl}
+                                          : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80'"
+                                 alt="Trip image">
+
+                            <div class="dashboard-trip-card-body">
+                                <div class="d-flex justify-content-between align-items-start gap-3">
+                                    <div>
+                                        <h3 th:text="${trip.destination}">Bali, Indonesia</h3>
+                                        <p>
+                                            <span th:text="${trip.travelStyle}">Luxury</span>
+                                            <span> • </span>
+                                            <span th:text="${trip.currency}">MUR</span>
+                                        </p>
+                                    </div>
+                                    <span class="soft-badge" th:text="${trip.status}">PLANNED</span>
+                                </div>
+
+                                <div class="dashboard-trip-meta">
+                                    <span><i class="bi bi-calendar-event me-1"></i><span th:text="${trip.startDate}">2026-05-09</span></span>
+                                    <span><i class="bi bi-cash-stack me-1"></i><span th:text="${#numbers.formatDecimal(trip.budget, 1, 'COMMA', 0, 'POINT')}">185000</span> MUR</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div th:if="${recentTrips == null or #lists.isEmpty(recentTrips)}" class="dashboard-empty-state">
+                        <div class="empty-state-icon mb-3">
+                            <i class="bi bi-map"></i>
+                        </div>
+                        <h3>No trips yet</h3>
+                        <p>Create your first travel plan and your recent trips will appear here.</p>
+                        <a class="btn btn-gradient" th:href="@{/trips/new}">
+                            <i class="bi bi-plus-circle me-2"></i>Create Trip
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="dashboard-panel h-100">
+                    <span class="section-kicker">Planning value</span>
+                    <h2 class="mb-3">What this dashboard gives you</h2>
+
+                    <div class="dashboard-value-list">
+                        <div>
+                            <span>Destination visuals</span>
+                            <strong>Included</strong>
+                        </div>
+                        <div>
+                            <span>MUR-first budgeting</span>
+                            <strong>Enabled</strong>
+                        </div>
+                        <div>
+                            <span>Trip CRUD</span>
+                            <strong>Enabled</strong>
+                        </div>
+                        <div>
+                            <span>AI itinerary generation</span>
+                            <strong>Enabled</strong>
+                        </div>
+                        <div>
+                            <span>Packing & checklist content</span>
+                            <strong>Enabled</strong>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-highlight-box mt-4">
+                        <i class="bi bi-gem"></i>
+                        <h3>Luxury planner feel</h3>
+                        <p>
+                            A polished travel workspace with beautiful cards, useful metrics,
+                            and a more premium experience than a simple CRUD dashboard.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+</html>

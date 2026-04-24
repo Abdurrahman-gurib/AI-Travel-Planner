@@ -1,0 +1,15 @@
+{
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.18.8-hotspot",
+      "default": true
+    }
+  ],
+  "java.import.gradle.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.18.8-hotspot",
+  "files.exclude": {
+    "**/.gradle": true,
+    "**/build": true
+  },
+  "java.configuration.updateBuildConfiguration": "interactive"
+}

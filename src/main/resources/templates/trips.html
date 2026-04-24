@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('My Trips', ~{::content})}">
+<div th:fragment="content">
+
+    <section class="trips-hero-shell">
+        <div class="container-xl py-4 py-lg-5">
+            <div class="trips-hero-panel">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-7">
+                        <span class="hero-badge dark-badge">Travel collection</span>
+                        <h1 class="page-title text-white mt-3">
+                            Your saved trips, dream destinations,
+                            and AI travel ideas in one beautiful place.
+                        </h1>
+                        <p class="page-subtitle text-white-50">
+                            Explore your saved journeys, generate richer travel plans,
+                            manage budgets in MUR, and discover more destination inspiration
+                            through a premium travel-first interface.
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-3 mt-4">
+                            <a class="btn btn-gradient btn-lg" th:href="@{/trips/new}">
+                                <i class="bi bi-plus-circle me-2"></i>Create New Trip
+                            </a>
+                            <a class="btn btn-outline-light btn-lg" th:href="@{/dashboard}">
+                                <i class="bi bi-grid me-2"></i>Open Dashboard
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="trips-hero-card">
+                            <div class="section-kicker text-info-emphasis">Planner highlights</div>
+                            <h3 class="text-white mb-3">Why this page feels stronger now</h3>
+
+                            <div class="hero-side-points">
+                                <div><i class="bi bi-stars"></i><span>Generate itineraries, budgets, and insights</span></div>
+                                <div><i class="bi bi-image"></i><span>Display destination visuals using direct image URLs</span></div>
+                                <div><i class="bi bi-wallet2"></i><span>Track travel budgets in MUR</span></div>
+                                <div><i class="bi bi-arrow-repeat"></i><span>Regenerate AI content from saved trips</span></div>
+                            </div>
+
+                            <div class="hero-side-stats mt-4">
+                                <div class="hero-side-stat">
+                                    <small>Total trips</small>
+                                    <strong th:text="${trips != null ? #lists.size(trips) : 0}">0</strong>
+                                </div>
+                                <div class="hero-side-stat">
+                                    <small>Currency</small>
+                                    <strong>MUR</strong>
+                                </div>
+                                <div class="hero-side-stat">
+                                    <small>Experience</small>
+                                    <strong>Luxury UI</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+    </section>
+
+    <section class="container-xl section-space pt-4">
+
+        <!-- alerts -->
+        <div class="mb-4">
+            <div th:if="${param.created}" class="alert alert-success alert-modern" role="alert">
+                <i class="bi bi-check2-circle me-2"></i>
+                Trip created successfully.
+            </div>
+
+            <div th:if="${param.deleted}" class="alert alert-success alert-modern" role="alert">
+                <i class="bi bi-trash me-2"></i>
+                Trip deleted successfully.
+            </div>
+
+            <div th:if="${successMessage}" class="alert alert-success alert-modern" role="alert">
+                <i class="bi bi-check2-circle me-2"></i>
+                <span th:text="${successMessage}">Success message</span>
+            </div>
+        </div>
+
+        <div class="section-header-modern mb-4">
+            <div>
+                <span class="section-kicker">Saved trips</span>
+                <h2>Your travel planner dashboard</h2>
+                <p>
+                    Every saved trip below should feel like a premium travel concept —
+                    with destination visuals, travel style, budget, and direct access to AI generation.
+                </p>
+            </div>
+        </div>
+
+        <!-- dynamic saved trips -->
+        <div class="row g-4" th:if="${trips != null and !#lists.isEmpty(trips)}">
+            <div class="col-md-6 col-xl-4" th:each="trip : ${trips}">
+                <div class="trip-card wow-card h-100">
+                    <img class="trip-card-image"
+                         th:src="${trip.itinerary != null and trip.itinerary.generatedImageUrl != null and !#strings.isEmpty(trip.itinerary.generatedImageUrl)}
+                                  ? ${trip.itinerary.generatedImageUrl}
+                                  : 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80'"
+                         alt="Trip destination image">
+
+                    <div class="trip-card-body d-flex flex-column">
+                        <div class="trip-card-top mb-3">
+                            <div>
+                                <h3 class="mb-1" th:text="${trip.destination}">Bali, Indonesia</h3>
+                                <div class="trip-card-subline">
+                                    <span th:text="${trip.travelStyle}">Luxury</span>
+                                    <span class="dot-sep">•</span>
+                                    <span th:text="${trip.currency}">MUR</span>
+                                </div>
+                            </div>
+                            <span class="soft-badge" th:text="${trip.status}">PLANNED</span>
+                        </div>
+
+                        <p class="trip-tagline mb-3"
+                           th:text="${trip.interests != null and !#strings.isEmpty(trip.interests) ? trip.interests : 'Beaches, sunsets, food, shopping, and culture'}">
+                            beaches, sunsets, food, shopping, and culture
+                        </p>
+
+                        <div class="trip-meta mb-4">
+                            <div>
+                                <i class="bi bi-calendar-event me-2"></i>
+                                <span th:text="${trip.startDate}">2026-05-09</span>
+                                <span class="mx-1">→</span>
+                                <span th:text="${trip.endDate}">2026-05-14</span>
+                            </div>
+                            <div>
+                                <i class="bi bi-people me-2"></i>
+                                <span th:text="${trip.travelers}">2</span> traveller(s)
+                            </div>
+                            <div>
+                                <i class="bi bi-cash-stack me-2"></i>
+                                <span th:text="${#numbers.formatDecimal(trip.budget, 1, 'COMMA', 2, 'POINT')}">25000.00</span>
+                                <span th:text="${trip.currency}">MUR</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto d-flex flex-wrap gap-2">
+                            <a class="btn btn-gradient btn-sm"
+                               th:href="@{/trips/{id}(id=${trip.id})}">
+                                <i class="bi bi-eye me-1"></i>View
+                            </a>
+
+                            <a class="btn btn-outline-dark btn-sm"
+                               th:href="@{/trips/{id}/edit(id=${trip.id})}">
+                                <i class="bi bi-pencil-square me-1"></i>Edit
+                            </a>
+
+                            <form th:action="@{/trips/{id}/generate(id=${trip.id})}" method="post" class="d-inline">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button type="submit" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-stars me-1"></i>Generate
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${trips == null or #lists.isEmpty(trips)}" class="empty-state-shell">
+            <div class="empty-state-card text-center">
+                <div class="empty-state-icon">
+                    <i class="bi bi-map"></i>
+                </div>
+                <h3>No trips yet</h3>
+                <p>
+                    Start by creating your first destination plan. Add your travel style,
+                    dates, budget in MUR, and let AI build the experience.
+                </p>
+                <a class="btn btn-gradient" th:href="@{/trips/new}">
+                    <i class="bi bi-plus-circle me-2"></i>Create your first trip
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- extra cards for richer page presentation -->
+    <section class="container-xl pb-5">
+        <div class="section-header-modern mb-4">
+            <div>
+                <span class="section-kicker">More destination inspiration</span>
+                <h2>Explore more dream countries and escapes</h2>
+                <p>
+                    These extra visual cards make the page feel much richer and more exciting for travellers.
+                    They use direct image URLs so they display immediately.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80"
+                         alt="Bali, Indonesia">
+                    <div class="destination-card-body">
+                        <h3>Bali, Indonesia</h3>
+                        <p>Cliff temples, villas, warm sunsets, and tropical romance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1200&q=80"
+                         alt="Zanzibar, Tanzania">
+                    <div class="destination-card-body">
+                        <h3>Zanzibar, Tanzania</h3>
+                        <p>Spice island energy, coastal calm, and turquoise water.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1200&q=80"
+                         alt="Santorini, Greece">
+                    <div class="destination-card-body">
+                        <h3>Santorini, Greece</h3>
+                        <p>Whitewashed elegance, blue domes, and sea-view luxury.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80"
+                         alt="Maldives">
+                    <div class="destination-card-body">
+                        <h3>Maldives</h3>
+                        <p>Overwater villas, crystal lagoons, and serene island luxury.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80"
+                         alt="Paris, France">
+                    <div class="destination-card-body">
+                        <h3>Paris, France</h3>
+                        <p>Romance, fashion, cafés, and elegant city escapes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1499092346589-b9b6be3e94b2?auto=format&fit=crop&w=1200&q=80"
+                         alt="Dubai, UAE">
+                    <div class="destination-card-body">
+                        <h3>Dubai, UAE</h3>
+                        <p>Luxury towers, desert experiences, shopping, and nightlife.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80"
+                         alt="Tokyo, Japan">
+                    <div class="destination-card-body">
+                        <h3>Tokyo, Japan</h3>
+                        <p>Neon lights, sushi culture, temples, and futuristic charm.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+                         alt="Cape Town, South Africa">
+                    <div class="destination-card-body">
+                        <h3>Cape Town, South Africa</h3>
+                        <p>Ocean drives, mountains, vineyards, and coastal beauty.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1200&q=80"
+                         alt="Mauritius">
+                    <div class="destination-card-body">
+                        <h3>Mauritius</h3>
+                        <p>Lagoon blues, soft luxury resorts, and island elegance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
+                         alt="Switzerland">
+                    <div class="destination-card-body">
+                        <h3>Switzerland</h3>
+                        <p>Mountain calm, luxury trains, alpine villages, and clean beauty.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?auto=format&fit=crop&w=1200&q=80"
+                         alt="New York, USA">
+                    <div class="destination-card-body">
+                        <h3>New York, USA</h3>
+                        <p>Skyline energy, luxury shopping, nightlife, and iconic city life.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-lg-4 col-xl-3">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=1200&q=80"
+                         alt="Rome, Italy">
+                    <div class="destination-card-body">
+                        <h3>Rome, Italy</h3>
+                        <p>Historic beauty, pasta, piazzas, and timeless architecture.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</html>

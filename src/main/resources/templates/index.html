@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout('AI Travel Planner', ~{::content})}">
+<div th:fragment="content">
+
+    <section class="hero-section hero-wow">
+        <div class="hero-bg-orb hero-bg-orb-1"></div>
+        <div class="hero-bg-orb hero-bg-orb-2"></div>
+        <div class="hero-bg-orb hero-bg-orb-3"></div>
+
+        <div class="container-xl py-5 py-lg-6 position-relative">
+            <div class="row align-items-center g-5">
+                <div class="col-xl-7 col-lg-7">
+                    <span class="hero-badge">AI-powered luxury travel planning</span>
+
+                    <h1 class="hero-title mt-3">
+                        Turn dream destinations into
+                        beautiful itineraries,
+                        destination visuals,
+                        and smart budgets in MUR.
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Designed for travellers in Mauritius who want more than a plain planner.
+                        Generate polished itineraries, destination insights, packing lists, budget planning,
+                        travel checklists, and eye-catching destination visuals — all inside one modern experience.
+                    </p>
+
+                    <div class="hero-cta-group mt-4">
+                        <a class="btn btn-gradient btn-lg" th:href="@{/register}">
+                            <i class="bi bi-stars me-2"></i>Start Planning
+                        </a>
+                        <a class="btn btn-outline-light btn-lg" th:href="@{/login}">
+                            <i class="bi bi-person-circle me-2"></i>Use Demo Account
+                        </a>
+                    </div>
+
+                    <div class="hero-info-grid mt-4">
+                        <div class="hero-info-item">
+                            <i class="bi bi-check2-circle"></i>
+                            <span>Day-by-day AI itineraries with structured travel flow</span>
+                        </div>
+                        <div class="hero-info-item">
+                            <i class="bi bi-cash-coin"></i>
+                            <span>Budgets designed in MUR for Mauritius-based travellers</span>
+                        </div>
+                        <div class="hero-info-item">
+                            <i class="bi bi-image"></i>
+                            <span>Destination image cards with direct image URLs and AI-ready visuals</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-stats-row mt-4">
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-label">Planner</div>
+                            <strong>Trip creation + AI generation</strong>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-label">Budgeting</div>
+                            <strong>MUR-first cost planning</strong>
+                        </div>
+                        <div class="hero-stat-card">
+                            <div class="hero-stat-label">Visuals</div>
+                            <strong>Travel moodboard cards</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-5 col-lg-5">
+                    <div class="hero-showcase-card">
+                        <div class="hero-showcase-top">
+                            <div>
+                                <div class="small-eyebrow">Featured travel experience</div>
+                                <h2 class="hero-showcase-title">Luxury island and city escapes</h2>
+                            </div>
+                            <span class="showcase-pill">Modern UI</span>
+                        </div>
+
+                        <div class="hero-showcase-image-wrap">
+                            <img
+                                class="hero-showcase-image"
+                                src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+                                alt="Tropical travel destination">
+                            <div class="hero-showcase-overlay">
+                                <div class="hero-showcase-overlay-card">
+                                    <span class="overlay-label">Example generated vibe</span>
+                                    <strong>Mauritius → Bali → Santorini</strong>
+                                    <p>Luxury, soft adventure, sunsets, culture, food, and coastal calm.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-mini-grid mt-3">
+                            <div class="mini-feature-card">
+                                <i class="bi bi-shield-lock"></i>
+                                <span>Secure login and user trips</span>
+                            </div>
+                            <div class="mini-feature-card">
+                                <i class="bi bi-map"></i>
+                                <span>Create and manage trip plans</span>
+                            </div>
+                            <div class="mini-feature-card">
+                                <i class="bi bi-stars"></i>
+                                <span>AI itinerary and travel tips</span>
+                            </div>
+                            <div class="mini-feature-card">
+                                <i class="bi bi-wallet2"></i>
+                                <span>MUR budgets and analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl section-space">
+        <div class="section-header-modern">
+            <div>
+                <span class="section-kicker">Destination inspiration</span>
+                <h2>Travel cards that feel like a real luxury planner</h2>
+                <p>
+                    These destination cards use direct image links so they display immediately and make the homepage feel alive.
+                    You can later replace them with OpenAI-generated images for user-created trips.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80"
+                         alt="Bali Escape">
+                    <div class="destination-card-body">
+                        <div class="destination-card-top">
+                            <h3>Bali Escape</h3>
+                            <span class="soft-badge">Tropical</span>
+                        </div>
+                        <p>Lagoon mornings, cliffside sunsets, luxury villas, and soft adventure days.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=1200&q=80"
+                         alt="Santorini Glow">
+                    <div class="destination-card-body">
+                        <div class="destination-card-top">
+                            <h3>Santorini Glow</h3>
+                            <span class="soft-badge">Luxury</span>
+                        </div>
+                        <p>Whitewashed beauty, calm blue domes, sea views, and unforgettable golden-hour dinners.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=1200&q=80"
+                         alt="Zanzibar Breeze">
+                    <div class="destination-card-body">
+                        <div class="destination-card-top">
+                            <h3>Zanzibar Breeze</h3>
+                            <span class="soft-badge">Beach</span>
+                        </div>
+                        <p>Warm turquoise water, spice-trail energy, barefoot calm, and dreamy coastal relaxation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80"
+                         alt="Dubai Luxe">
+                    <div class="destination-card-body">
+                        <div class="destination-card-top">
+                            <h3>Dubai Luxe</h3>
+                            <span class="soft-badge">City</span>
+                        </div>
+                        <p>High-rise glamour, desert experiences, luxury shopping, rooftop nights, and polished comfort.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80"
+                         alt="Maldives Retreat">
+                    <div class="destination-card-body">
+                        <div class="destination-card-top">
+                            <h3>Maldives Retreat</h3>
+                            <span class="soft-badge">Island</span>
+                        </div>
+                        <p>Overwater serenity, crystal lagoons, slow luxury, and dream honeymoon energy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="destination-card wow-card h-100">
+                    <img class="destination-card-image"
+                         src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80"
+                         alt="Paris Glow">
+                    <div class="destination-card-body">
+                        <div class="destination-card-top">
+                            <h3>Paris Glow</h3>
+                            <span class="soft-badge">Romance</span>
+                        </div>
+                        <p>Elegant streets, iconic architecture, café culture, fashion, and timeless city magic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl pb-5">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7">
+                <div class="page-card wow-panel h-100">
+                    <div class="section-kicker">Why this feels better</div>
+                    <h2 class="mb-3">A homepage made for travel lovers, not just developers</h2>
+                    <p class="text-secondary mb-4">
+                        The goal is to make the app feel aspirational, premium, and exciting to explore.
+                        It should instantly communicate travel inspiration, AI intelligence, budgeting value, and visual storytelling.
+                    </p>
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="feature-card modern-feature h-100">
+                                <h3>Beautiful first impression</h3>
+                                <p>A stronger hero section, luxury travel visuals, and cleaner spacing make the app feel more polished and trustworthy.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card modern-feature h-100">
+                                <h3>Better destination display</h3>
+                                <p>Using direct image URLs ensures cards show proper images immediately instead of broken placeholders.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card modern-feature h-100">
+                                <h3>Stronger user excitement</h3>
+                                <p>Dream destinations, coastal colors, and premium travel language help travellers imagine the journey before planning it.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card modern-feature h-100">
+                                <h3>Still practical</h3>
+                                <p>Behind the visuals, the app still delivers trip CRUD, AI itinerary generation, MUR budgeting, and trip history.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="page-card wow-panel h-100 timeline-shell">
+                    <div class="section-kicker">Planner flow</div>
+                    <h2 class="h4 mb-4">How travellers use the platform</h2>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">1</div>
+                        <div>
+                            <strong>Create a trip</strong>
+                            <p>Choose destination, travel style, dates, interests, and expected MUR budget.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">2</div>
+                        <div>
+                            <strong>Generate AI plan</strong>
+                            <p>Build itinerary sections, destination insights, budget guidance, checklist items, and packing suggestions.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step">
+                        <div class="timeline-dot">3</div>
+                        <div>
+                            <strong>See destination visuals</strong>
+                            <p>Use direct image cards now, then upgrade to OpenAI-generated destination visuals for saved trips.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-step mb-0">
+                        <div class="timeline-dot">4</div>
+                        <div>
+                            <strong>Manage and refine</strong>
+                            <p>Return to the dashboard, update trip details, regenerate ideas, and keep a clean history of travel plans.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl pb-5">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="feature-card version-card h-100">
+                    <div class="section-kicker">Version 1</div>
+                    <h3>Core planner</h3>
+                    <p>Authentication, trip CRUD, trip history, clean navigation, and responsive destination pages.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature-card version-card h-100">
+                    <div class="section-kicker">Version 2</div>
+                    <h3>AI enrichment</h3>
+                    <p>Budget planning, destination insights, packing list generation, and trip regeneration workflows.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="feature-card version-card h-100">
+                    <div class="section-kicker">Version 3</div>
+                    <h3>Showcase mode</h3>
+                    <p>Dashboard metrics, polished UI, demo-ready seeded content, direct image cards, and a richer luxury travel feel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+</html>
